@@ -139,7 +139,7 @@
 </div>
 
 <script>
-// EP01 核心資料庫：無首字母提示、移除所有字尾變化的純挖空版本
+// EP01 核心資料庫：無首字母提示、嚴格配合題意挖空與變形版本
 const rawData = [
     { type: "單字辨析", word: "Let’s do it <u><b>anyway</b></u>.", show: "總之做做看吧", ans: true, feedback: "anyway 是副詞「無論如何、總之」。" },
     { type: "句型搭配", word: "anyway", show: "Let’s do it ______ . / 填入：anyway", ans: true, feedback: "應填入 anyway。" },
@@ -147,8 +147,8 @@ const rawData = [
     { type: "句型搭配", word: "following", show: "______ the interview, we had a short meeting. / 填入：following", ans: true, feedback: "應填入 following。" },
     { type: "單字辨析", word: "Please <u><b>refer</b></u> to the training manual.", show: "請參考訓練手冊", ans: true, feedback: "refer to 是多益常見片語，意為「參考、查閱」。" },
     { type: "句型搭配", word: "refer", show: "Please ______ to the training manual. / 填入：provide", ans: false, feedback: "應填入 refer。" },
-    { type: "單字辨析", word: "<u><b>Tickets</b></u> are available online.", show: "票券無法在線上購買", ans: false, feedback: "available 是形容詞「可買到的、可取得的」。" },
-    { type: "句型搭配", word: "available", show: "______ are available online. / 填入：tickets", ans: true, feedback: "應填入 tickets (原型為 ticket)。" },
+    { type: "單字辨析", word: "Tickets are <u><b>available</b></u> online.", show: "票券無法在線上購買", ans: false, feedback: "available 是形容詞「可買到的、可取得的」。" },
+    { type: "句型搭配", word: "available", show: "Tickets are ______ online. / 填入: available", ans: true, feedback: "應填入 available。" },
     { type: "單字辨析", word: "the accounting <u><b>department</b></u>", show: "會計部門", ans: true, feedback: "department 是名詞「部門」。" },
     { type: "句型搭配", word: "department", show: "the accounting ______ / 填入：department", ans: true, feedback: "應填入 department。" },
     { type: "單字辨析", word: "a large <u><b>conference</b></u> room", show: "寬敞的休息室", ans: false, feedback: "conference room 是「會議室」。" },
@@ -166,13 +166,13 @@ const rawData = [
     { type: "單字辨析", word: "<u><b>local</b></u> businesses", show: "跨國企業", ans: false, feedback: "local 是形容詞「在地的、當地的」。" },
     { type: "句型搭配", word: "local", show: "______ businesses / 填入：local", ans: true, feedback: "應填入 local。" },
     { type: "單字辨析", word: "<u><b>purchase</b></u> office supplies", show: "購買辦公用品", ans: true, feedback: "purchase 作動詞代表「購買」。" },
-    { type: "句型搭配", word: "purchase", show: "purchase office ______ / 填入：equipment", ans: false, feedback: "應填入 supplies (原型為 supply)。" },
+    { type: "句型搭配", word: "purchase", show: "______ office supplies / 填入：purchase", ans: true, feedback: "應填入 purchase。" },
     { type: "單字辨析", word: "a part-time job <u><b>opening</b></u>", show: "兼職職缺", ans: true, feedback: "opening 在此作為名詞，指「職缺、空缺」。" },
     { type: "句型搭配", word: "opening", show: "a part-time job ______ / 填入：opening", ans: true, feedback: "應填入 opening。" },
     { type: "單字辨析", word: "<u><b>construction</b></u> project", show: "破壞計畫", ans: false, feedback: "construction 是名詞「建設、建造」。" },
     { type: "句型搭配", word: "construction", show: "______ project / 填入：construction", ans: true, feedback: "應填入 construction。" },
     { type: "單字辨析", word: "while <u><b>touring</b></u> the factory", show: "參訪工廠時", ans: true, feedback: "tour 作動詞可指「參訪、巡視」。" },
-    { type: "句型搭配", word: "tour", show: "while ______ the factory / 填入：opening", ans: false, feedback: "應填入 touring (原型為 tour)。" },
+    { type: "句型搭配", word: "tour", show: "while ______ the factory / 填入：touring", ans: true, feedback: "應填入 touring。" },
     { type: "單字辨析", word: "market <u><b>research</b></u>", show: "市場調查/研究", ans: true, feedback: "research 是名詞「研究、調查」。" },
     { type: "句型搭配", word: "research", show: "market ______ / 填入：research", ans: true, feedback: "應填入 research。" },
     { type: "單字辨析", word: "<u><b>attend</b></u> a training session", show: "取消訓練課程", ans: false, feedback: "attend 是動詞「出席、參加」。" },
@@ -182,7 +182,7 @@ const rawData = [
     { type: "單字辨析", word: "I <u><b>recently</b></u> visited our new branch office.", show: "我最近參觀了我們的新分公司", ans: true, feedback: "recently 是副詞「最近」。" },
     { type: "句型搭配", word: "recently", show: "I ______ visited our new branch office. / 填入：recently", ans: true, feedback: "應填入 recently。" },
     { type: "單字辨析", word: "What is <u><b>indicated</b></u> about the new product?", show: "關於這個新產品隱瞞了什麼？", ans: false, feedback: "indicate 是動詞「提及、指出、表明」。" },
-    { type: "句型搭配", word: "indicate", show: "What is ______ about the new product? / 填入：indicated", ans: true, feedback: "應填入 indicated (原型為 indicate)。" },
+    { type: "句型搭配", word: "indicate", show: "What is ______ about the new product? / 填入：indicated", ans: true, feedback: "應填入 indicated。" },
     { type: "單字辨析", word: "an <u><b>employee</b></u> of the company", show: "公司的一位員工", ans: true, feedback: "employee 是名詞「員工」。" },
     { type: "句型搭配", word: "employee", show: "an ______ of the company / 填入：opening", ans: false, feedback: "應填入 employee。" },
     { type: "單字辨析", word: "request <u><b>additional</b></u> staff", show: "請求增加人力/額外員工", ans: true, feedback: "additional 是形容詞「額外的」。" },
