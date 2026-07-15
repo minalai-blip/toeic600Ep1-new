@@ -139,107 +139,107 @@
 </div>
 
 <script>
-// EP01 核心資料庫 (001 - 025共25字，單字辨析與句型搭配 True/False 完美交替且互補)
+// EP01 核心資料庫 (單字辨析與句型搭配 True/False 完美交替且互補)
 const rawData = [
-    // 001. product (辨析: True / 句型: False)
-    { id: "product", type: "單字辨析", word: "launch a new <u><b>product</b></u>", show: "產品", ans: true, feedback: "product 是名詞「產品」。" },
-    { id: "product", type: "句型搭配", show: "launch a new ______ / 填入：postpone", ans: false, feedback: "應填入 product。" },
+    // 001. anyway (辨析: True / 句型: False)
+    { id: "anyway", type: "單字辨析", word: "Let’s do it <u><b>anyway</b></u>.", show: "無論如何、總之", ans: true, feedback: "anyway 是副詞「無論如何、總之」。" },
+    { id: "anyway", type: "句型搭配", show: "Let’s do it ______. / 填入：available", ans: false, feedback: "應填入 anyway。" },
 
-    // 002. postpone (辨析: False / 句型: True)
-    { id: "postpone", type: "單字辨析", word: "<u><b>postpone</b></u> the meeting", show: "產品", ans: false, feedback: "postpone 是動詞「延期」。" },
-    { id: "postpone", type: "句型搭配", show: "______ the meeting / 填入：postpone", ans: true, feedback: "應填入 postpone。" },
+    // 002. following (辨析: False / 句型: True)
+    { id: "following", type: "單字辨析", word: "<u><b>Following</b></u> the interview, we had a short meeting.", show: "參考", ans: false, feedback: "following 是介系詞「在...之後」。" },
+    { id: "following", type: "句型搭配", show: "______ the interview, we had a short meeting. / 填入：Following", ans: true, feedback: "應填入 Following。" },
 
-    // 003. attendee (辨析: True / 句型: False)
-    { id: "attendee", type: "單字辨析", word: "confirm the number of <u><b>attendees</b></u>", show: "參加者", ans: true, feedback: "attendee 是名詞「參加者」。" },
-    { id: "attendee", type: "句型搭配", show: "confirm the number of ______ / 填入：register", ans: false, feedback: "應填入 attendees。" },
+    // 003. refer (辨析: True / 句型: False)
+    { id: "refer", type: "單字辨析", word: "Please <u><b>refer</b></u> to the training manual.", show: "參考", ans: true, feedback: "refer 是動詞「參考」。" },
+    { id: "refer", type: "句型搭配", show: "Please ______ to the training manual. / 填入：department", ans: false, feedback: "應填入 refer。" },
 
-    // 004. register (辨析: False / 句型: True)
-    { id: "register", type: "單字辨析", word: "<u><b>register</b></u> for the webinar", show: "參加者", ans: false, feedback: "register 是動詞「註冊、登記」。" },
-    { id: "register", type: "句型搭配", show: "______ for the webinar / 填入：register", ans: true, feedback: "應填入 register。" },
+    // 004. available (辨析: False / 句型: True)
+    { id: "available", type: "單字辨析", word: "Tickets are <u><b>available</b></u> online.", show: "部門", ans: false, feedback: "available 是形容詞「可購買的、可取得的」。" },
+    { id: "available", type: "句型搭配", show: "Tickets are ______ online. / 填入：available", ans: true, feedback: "應填入 available。" },
 
-    // 005. discount (辨析: True / 句型: False)
-    { id: "discount", type: "單字辨析", word: "offer a 10% <u><b>discount</b></u>", show: "折扣", ans: true, feedback: "discount 是名詞「折扣」。" },
-    { id: "discount", type: "句型搭配", show: "offer a 10% ______ / 填入：refund", ans: false, feedback: "應填入 discount。" },
+    // 005. department (辨析: True / 句型: False)
+    { id: "department", type: "單字辨析", word: "the accounting <u><b>department</b></u>", show: "部門", ans: true, feedback: "department 是名詞「部門」。" },
+    { id: "department", type: "句型搭配", show: "the accounting ______ / 填入：conference", ans: false, feedback: "應填入 department。" },
 
-    // 006. refund (辨析: False / 句型: True)
-    { id: "refund", type: "單字辨析", word: "request a full <u><b>refund</b></u>", show: "折扣", ans: false, feedback: "refund 是名詞或動詞「退款」。" },
-    { id: "refund", type: "句型搭配", show: "request a full ______ / 填入：refund", ans: true, feedback: "應填入 refund。" },
+    // 006. conference (辨析: False / 句型: True)
+    { id: "conference", type: "單字辨析", word: "a large <u><b>conference</b></u> room", show: "根據、按照", ans: false, feedback: "conference 是名詞「會議」。" },
+    { id: "conference", type: "句型搭配", show: "a large ______ room / 填入：conference", ans: true, feedback: "應填入 conference。" },
 
-    // 007. warranty (辨析: True / 句型: False)
-    { id: "warranty", type: "單字辨析", word: "under <u><b>warranty</b></u>", show: "保固", ans: true, feedback: "warranty 是名詞「保固」。" },
-    { id: "warranty", type: "句型搭配", show: "under ______ / 填入：expired", ans: false, feedback: "應填入 warranty。" },
+    // 007. according to (辨析: True / 句型: False)
+    { id: "according to", type: "單字辨析", word: "<u><b>according to</b></u> the e-mail", show: "根據、按照", ans: true, feedback: "according to 是介系詞短語「根據、按照」。" },
+    { id: "according to", type: "句型搭配", show: "______ the e-mail / 填入：likely", ans: false, feedback: "應填入 according to。" },
 
-    // 008. expired (辨析: False / 句型: True)
-    { id: "expired", type: "單字辨析", word: "The warranty has <u><b>expired</b></u>.", show: "保固", ans: false, feedback: "expired 是形容詞「過期的」。" },
-    { id: "expired", type: "句型搭配", show: "The warranty has ______. / 填入：expired", ans: true, feedback: "應填入 expired。" },
+    // 008. likely (辨析: False / 句型: True)
+    { id: "likely", type: "單字辨析", word: "Who most <u><b>likely</b></u> is the man?", show: "提議", ans: false, feedback: "likely 是形容詞「有可能的」。" },
+    { id: "likely", type: "句型搭配", show: "Who most ______ is the man? / 填入：likely", ans: true, feedback: "應填入 likely。" },
 
-    // 009. invoice (辨析: True / 句型: False)
-    { id: "invoice", type: "單字辨析", word: "send an <u><b>invoice</b></u>", show: "發票、出貨單", ans: true, feedback: "invoice 是名詞「發票、出貨單」。" },
-    { id: "invoice", type: "句型搭配", show: "send an ______ / 填入：delivery", ans: false, feedback: "應填入 invoice。" },
+    // 009. offer (辨析: True / 句型: False)
+    { id: "offer", type: "單字辨析", word: "What does the woman <u><b>offer</b></u> to do?", show: "提議", ans: true, feedback: "offer 是動詞「提議」。" },
+    { id: "offer", type: "句型搭配", show: "What does the woman ______ to do? / 填入：equipment", ans: false, feedback: "應填入 offer。" },
 
-    // 010. delivery (辨析: False / 句型: True)
-    { id: "delivery", type: "單字辨析", word: "expecting a <u><b>delivery</b></u> today", show: "發票、出貨單", ans: false, feedback: "delivery 是名詞「遞送、交付」。" },
-    { id: "delivery", type: "句型搭配", show: "expecting a ______ today / 填入：delivery", ans: true, feedback: "應填入 delivery。" },
+    // 010. equipment (辨析: False / 句型: True)
+    { id: "equipment", type: "單字辨析", word: "new office <u><b>equipment</b></u>", show: "提供", ans: false, feedback: "equipment 是名詞「設備、裝備」。" },
+    { id: "equipment", type: "句型搭配", show: "new office ______ / 填入：equipment", ans: true, feedback: "應填入 equipment。" },
 
-    // 011. shipping (辨析: True / 句型: False)
-    { id: "shipping", type: "單字辨析", word: "free <u><b>shipping</b></u> on orders over $50", show: "運送", ans: true, feedback: "shipping 是名詞「運送」。" },
-    { id: "shipping", type: "句型搭配", show: "free ______ on orders over $50 / 填入：tracking", ans: false, feedback: "應填入 shipping。" },
+    // 011. provide (辨析: True / 句型: False)
+    { id: "provide", type: "單字辨析", word: "Please <u><b>provide</b></u> me with your e-mail address.", show: "提供", ans: true, feedback: "provide 是動詞「提供」。" },
+    { id: "provide", type: "句型搭配", show: "Please ______ me with your e-mail address. / 填入：local", ans: false, feedback: "應填入 provide。" },
 
-    // 012. tracking (辨析: False / 句型: True)
-    { id: "tracking", type: "單字辨析", word: "a <u><b>tracking</b></u> number", show: "運送", ans: false, feedback: "tracking 是名詞或形容詞「追蹤」。" },
-    { id: "tracking", type: "句型搭配", show: "a ______ number / 填入：tracking", ans: true, feedback: "應填入 tracking。" },
+    // 012. local (辨析: False / 句型: True)
+    { id: "local", type: "單字辨析", word: "<u><b>local</b></u> businesses", show: "購買", ans: false, feedback: "local 是形容詞「在地的」。" },
+    { id: "local", type: "句型搭配", show: "______ businesses / 填入：local", ans: true, feedback: "應填入 local。" },
 
-    // 013. inventory (辨析: True / 句型: False)
-    { id: "inventory", type: "單字辨析", word: "check the <u><b>inventory</b></u>", show: "庫存、清單", ans: true, feedback: "inventory 是名詞「庫存、清單」。" },
-    { id: "inventory", type: "句型搭配", show: "check the ______ / 填入：supplier", ans: false, feedback: "應填入 inventory。" },
+    // 013. purchase (辨析: True / 句型: False)
+    { id: "purchase", type: "單字辨析", word: "<u><b>purchase</b></u> office supplies", show: "購買", ans: true, feedback: "purchase 是動詞「購買」。" },
+    { id: "purchase", type: "句型搭配", show: "______ office supplies / 填入：opening", ans: false, feedback: "應填入 purchase。" },
 
-    // 014. supplier (辨析: False / 句型: True)
-    { id: "supplier", type: "單字辨析", word: "contact the <u><b>supplier</b></u>", show: "庫存、清單", ans: false, feedback: "supplier 是名詞「供應商」。" },
-    { id: "supplier", type: "句型搭配", show: "contact the ______ / 填入：supplier", ans: true, feedback: "應填入 supplier。" },
+    // 014. opening (辨析: False / 句型: True)
+    { id: "opening", type: "單字辨析", word: "a part-time job <u><b>opening</b></u>", show: "建設", ans: false, feedback: "opening 是名詞「職缺」。" },
+    { id: "opening", type: "句型搭配", show: "a part-time job ______ / 填入：opening", ans: true, feedback: "應填入 opening。" },
 
-    // 015. representative (辨析: True / 句型: False)
-    { id: "representative", type: "單字辨析", word: "customer service <u><b>representative</b></u>", show: "專員、代表", ans: true, feedback: "representative 是名詞「專員、代表」。" },
-    { id: "representative", type: "句型搭配", show: "customer service ______ / 填入：supervise", ans: false, feedback: "應填入 representative。" },
+    // 015. construction (辨析: True / 句型: False)
+    { id: "construction", type: "單字辨析", word: "<u><b>construction</b></u> project", show: "建設", ans: true, feedback: "construction 是名詞「建設」。" },
+    { id: "construction", type: "句型搭配", show: "______ project / 填入：tour", ans: false, feedback: "應填入 construction。" },
 
-    // 016. supervise (辨析: False / 句型: True)
-    { id: "supervise", type: "單字辨析", word: "<u><b>supervise</b></u> the new team", show: "專員、代表", ans: false, feedback: "supervise 是動詞「監督、管理」。" },
-    { id: "supervise", type: "句型搭配", show: "______ the new team / 填入：supervise", ans: true, feedback: "應填入 supervise。" },
+    // 016. tour (辨析: False / 句型: True)
+    { id: "tour", type: "單字辨析", word: "while <u><b>touring</b></u> the factory", show: "研究、調查", ans: false, feedback: "tour 是動詞「參訪」。" },
+    { id: "tour", type: "句型搭配", show: "while ______ the factory / 填入：touring", ans: true, feedback: "應填入 touring。" },
 
-    // 017. instruction (辨析: True / 句型: False)
-    { id: "instruction", type: "單字辨析", word: "follow the <u><b>instructions</b></u> carefully", show: "指示、說明", ans: true, feedback: "instruction 是名詞「指示、說明」。" },
-    { id: "instruction", type: "句型搭配", show: "follow the ______s carefully / 填入：submit", ans: false, feedback: "應填入 instructions。" },
+    // 017. research (辨析: True / 句型: False)
+    { id: "research", type: "單字辨析", word: "market <u><b>research</b></u>", show: "研究、調查", ans: true, feedback: "research 是名詞「研究、調查」。" },
+    { id: "research", type: "句型搭配", show: "market ______ / 填入：attend", ans: false, feedback: "應填入 research。" },
 
-    // 018. submit (辨析: False / 句型: True)
-    { id: "submit", type: "單字辨析", word: "<u><b>submit</b></u> the report", show: "指示、說明", ans: false, feedback: "submit 是動詞「提交」。" },
-    { id: "submit", type: "句型搭配", show: "______ the report / 填入：submit", ans: true, feedback: "應填入 submit。" },
+    // 018. attend (辨析: False / 句型: True)
+    { id: "attend", type: "單字辨析", word: "<u><b>attend</b></u> a training session", show: "送貨", ans: false, feedback: "attend 是動詞「出席、參加」。" },
+    { id: "attend", type: "句型搭配", show: "______ a training session / 填入：attend", ans: true, feedback: "應填入 attend。" },
 
-    // 019. deadline (辨析: True / 句型: False)
-    { id: "deadline", type: "單字辨析", word: "meet the <u><b>deadline</b></u>", show: "截止日期", ans: true, feedback: "deadline 是名詞「截止日期」。" },
-    { id: "deadline", type: "句型搭配", show: "meet the ______ / 填入：extension", ans: false, feedback: "應填入 deadline。" },
+    // 019. delivery (辨析: True / 句型: False)
+    { id: "delivery", type: "單字辨析", word: "change a <u><b>delivery</b></u> date", show: "送貨", ans: true, feedback: "delivery 是名詞「送貨」。" },
+    { id: "delivery", type: "句型搭配", show: "change a ______ date / 填入：recently", ans: false, feedback: "應填入 delivery。" },
 
-    // 020. extension (辨析: False / 句型: True)
-    { id: "extension", type: "單字辨析", word: "ask for an <u><b>extension</b></u>", show: "截止日期", ans: false, feedback: "extension 是名詞「展期、電話分機」。" },
-    { id: "extension", type: "句型搭配", show: "ask for an ______ / 填入：extension", ans: true, feedback: "應填入 extension。" },
+    // 020. recently (辨析: False / 句型: True)
+    { id: "recently", type: "單字辨析", word: "I <u><b>recently</b></u> visited our new branch office.", show: "提及", ans: false, feedback: "recently 是副詞「最近」。" },
+    { id: "recently", type: "句型搭配", show: "I ______ visited our new branch office. / 填入：recently", ans: true, feedback: "應填入 recently。" },
 
-    // 021. revision (辨析: True / 句型: False)
-    { id: "revision", type: "單字辨析", word: "make <u><b>revisions</b></u> to the draft", show: "修訂", ans: true, feedback: "revision 是名詞「修訂」。" },
-    { id: "revision", type: "句型搭配", show: "make ______s to the draft / 填入：approved", ans: false, feedback: "應填入 revisions。" },
+    // 021. indicate (辨析: True / 句型: False)
+    { id: "indicate", type: "單字辨析", word: "What is <u><b>indicated</b></u> about the new product?", show: "提及", ans: true, feedback: "indicate 是動詞「提及」。" },
+    { id: "indicate", type: "句型搭配", show: "What is ______ about the new product? / 填入：employee", ans: false, feedback: "應填入 indicated。" },
 
-    // 022. approved (辨析: False / 句型: True)
-    { id: "approved", type: "單字辨析", word: "The budget was <u><b>approved</b></u>.", show: "修訂", ans: false, feedback: "approved 是形容詞「經核准的」。" },
-    { id: "approved", type: "句型搭配", show: "The budget was ______. / 填入：approved", ans: true, feedback: "應填入 approved。" },
+    // 022. employee (辨析: False / 句型: True)
+    { id: "employee", type: "單字辨析", word: "an <u><b>employee</b></u> of the company", show: "額外的", ans: false, feedback: "employee 是名詞「員工」。" },
+    { id: "employee", type: "句型搭配", show: "an ______ of the company / 填入：employee", ans: true, feedback: "應填入 employee。" },
 
-    // 023. requirement (辨析: True / 句型: False)
-    { id: "requirement", type: "單字辨析", word: "meet the <u><b>requirements</b></u>", show: "需求、條件", ans: true, feedback: "requirement 是名詞「需求、條件」。" },
-    { id: "requirement", type: "句型搭配", show: "meet the ______s / 填入：recommends", ans: false, feedback: "應填入 requirements。" },
+    // 023. additional (辨析: True / 句型: False)
+    { id: "additional", type: "單字辨析", word: "request <u><b>additional</b></u> staff", show: "額外的", ans: true, feedback: "additional 是形容詞「額外的」。" },
+    { id: "additional", type: "句型搭配", show: "request ______ staff / 填入：survey", ans: false, feedback: "應填入 additional。" },
 
-    // 024. recommend (辨析: False / 句型: True)
-    { id: "recommend", type: "單字辨析", word: "Highly <u><b>recommend</b></u> this hotel", show: "需求、條件", ans: false, feedback: "recommend 是動詞「推薦」。" },
-    { id: "recommend", type: "句型搭配", show: "Highly ______ this hotel / 填入：recommend", ans: true, feedback: "應填入 recommend。" },
+    // 024. survey (辨析: False / 句型: True)
+    { id: "survey", type: "單字辨析", word: "a customer satisfaction <u><b>survey</b></u>", show: "審查; 評論", ans: false, feedback: "survey 是名詞「問卷調查」。" },
+    { id: "survey", type: "句型搭配", show: "a customer satisfaction ______ / 填入：survey", ans: true, feedback: "應填入 survey。" },
 
-    // 025. feedback (辨析: True / 句型: False)
-    { id: "feedback", type: "單字辨析", word: "valuable <u><b>feedback</b></u> from customers", show: "回饋、意見", ans: true, feedback: "feedback 是名詞「回饋、意見」。" },
-    { id: "feedback", type: "句型搭配", show: "valuable ______ from customers / 填入：product", ans: false, feedback: "應填入 feedback。" }
+    // 025. review (辨析: True / 句型: False)
+    { id: "review", type: "單字辨析", word: "<u><b>review</b></u> the safety procedures", show: "審查; 評論", ans: true, feedback: "review 是動詞「審查; 評論」。" },
+    { id: "review", type: "句型搭配", show: "______ the safety procedures / 填入：anyway", ans: false, feedback: "應填入 review。" }
 ];
 
 let questions = [];
@@ -248,18 +248,16 @@ let score = 0;
 let userHistoryList = []; 
 
 function initQuiz() {
-    // 1. 將題目以單字 ID 分組
     const groups = {};
     rawData.forEach(item => {
         if (!groups[item.id]) groups[item.id] = [];
         groups[item.id].push(item);
     });
 
-    // 2. 隨機選出 5 個不同的單字 ID
     const wordIds = Object.keys(groups);
     const shuffledIds = wordIds.sort(() => 0.5 - Math.random()).slice(0, 5);
 
-    // 3. 強制題型分配：至少各半 (3題 A 類型, 2題 B 類型，隨機決定誰 3 誰 2)
+    // 強制題型分配：參雜且至少各半 (3:2 或 2:3)
     const typesToAssign = ["單字辨析", "單字辨析", "句型搭配", "句型搭配", Math.random() > 0.5 ? "單字辨析" : "句型搭配"];
     typesToAssign.sort(() => 0.5 - Math.random());
 
@@ -275,7 +273,6 @@ function initQuiz() {
         }
     });
 
-    // 4. 打亂題庫順序
     questions = selectedQuestions.sort(() => 0.5 - Math.random());
     
     currentIndex = 0; 
@@ -296,7 +293,7 @@ function loadQuestion() {
     document.getElementById('type-tag').innerText = q.type;
     const wordEl = document.getElementById('word');
     
-    // 【關鍵修復點】：嚴格劃分句型搭配與單字辨析展示邏輯，排除 word 殘留或 undefined
+    // 嚴格隔離渲染行為，防止交叉污染與殘留
     if (q.type === "句型搭配") {
         wordEl.style.display = 'none'; 
         wordEl.innerHTML = ''; 
@@ -319,7 +316,6 @@ function handleAnswer(userAns) {
     feedback.style.display = 'block';
     const isCorrect = (userAns === q.ans);
     
-    // 儲存至結算頁面檢視紀錄
     userHistoryList.push({ 
         word: q.type === "句型搭配" ? "句型搭配" : q.word, 
         isCorrect: isCorrect, 
@@ -353,7 +349,6 @@ function showResult() {
     const now = new Date();
     const timeStr = `${now.getMonth() + 1}/${now.getDate()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
 
-    // 使用專屬 ep01 的 localStorage，避免覆蓋 EP02 的紀錄
     let history = JSON.parse(localStorage.getItem('toeic_history_ep01_v2')) || [];
     history.unshift({ score: score, time: timeStr });
     if(history.length > 5) history.pop();
