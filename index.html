@@ -1,12 +1,17 @@
-// 行 90 改設定為 "【EP01】基礎打底特訓"
+// ==========================================
+// 核心組態設定 (行 90, 131, 134, 135)
+// ==========================================
 const currentMode = "【EP01】基礎打底特訓";
 
-// 行 131-135 的設定內容
 const nextStageLink = `<a href="https://docs.google.com/forms/d/e/1FAIpQLSdNkem-vuwWTDc5eEfhv4FlqpubNv7dsoY0uFQEcv4c5rCtyg/viewform?usp=header" class="cta-button" target="_blank">前往👉下一關:中階情境演練</a>`;
 const promotionText = `這套「單字直覺」練習模式很有效吧!完整多益衝刺計畫已上架。<br>`;
 const shopeeLink = `<a href="https://shopee.tw/YOUR_LINK" class="shopee-link" target="_blank">點此前往看更多</a>`;
 
+// ==========================================
+// 完整測驗資料庫（共 50 題：25題辨析 + 25題搭配）
+// ==========================================
 const quizData = [
+  // 01. anyway
   {
     "type": "單字辨析",
     "word": "Let’s do it <u><b>anyway</b></u>.",
@@ -21,6 +26,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 anyway。"
   },
+
+  // 02. following
   {
     "type": "單字辨析",
     "word": "<u><b>Following</b></u> the interview, we had a short meeting.",
@@ -35,6 +42,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 Following。"
   },
+
+  // 03. refer
   {
     "type": "單字辨析",
     "word": "Please <u><b>refer</b></u> to the training manual.",
@@ -49,6 +58,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 refer。"
   },
+
+  // 04. available
   {
     "type": "單字辨析",
     "word": "Tickets are <u><b>available</b></u> online.",
@@ -63,6 +74,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 available。"
   },
+
+  // 05. department
   {
     "type": "單字辨析",
     "word": "the accounting <u><b>department</b></u>",
@@ -77,6 +90,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 department。"
   },
+
+  // 06. conference
   {
     "type": "單字辨析",
     "word": "a large <u><b>conference</b></u> room",
@@ -91,6 +106,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 conference。"
   },
+
+  // 07. according to
   {
     "type": "單字辨析",
     "word": "<u><b>according to</b></u> the e-mail",
@@ -105,6 +122,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 according to。"
   },
+
+  // 08. likely
   {
     "type": "單字辨析",
     "word": "Who most <u><b>likely</b></u> is the man?",
@@ -119,6 +138,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 likely。"
   },
+
+  // 09. offer
   {
     "type": "單字辨析",
     "word": "What does the woman <u><b>offer</b></u> to do?",
@@ -133,6 +154,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 offer。"
   },
+
+  // 10. equipment
   {
     "type": "單字辨析",
     "word": "new office <u><b>equipment</b></u>",
@@ -147,6 +170,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 equipment。"
   },
+
+  // 11. provide
   {
     "type": "單字辨析",
     "word": "Please <u><b>provide</b></u> me with your e-mail address.",
@@ -161,6 +186,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 provide。"
   },
+
+  // 12. local
   {
     "type": "單字辨析",
     "word": "<u><b>local</b></u> businesses",
@@ -175,6 +202,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 local。"
   },
+
+  // 13. purchase
   {
     "type": "單字辨析",
     "word": "<u><b>purchase</b></u> office supplies",
@@ -189,6 +218,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 purchase。"
   },
+
+  // 14. opening
   {
     "type": "單字辨析",
     "word": "a part-time job <u><b>opening</b></u>",
@@ -203,6 +234,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 opening。"
   },
+
+  // 15. construction
   {
     "type": "單字辨析",
     "word": "<u><b>construction</b></u> project",
@@ -217,6 +250,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 construction。"
   },
+
+  // 16. tour
   {
     "type": "單字辨析",
     "word": "while <u><b>touring</b></u> the factory",
@@ -231,6 +266,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 touring。"
   },
+
+  // 17. research
   {
     "type": "單字辨析",
     "word": "market <u><b>research</b></u>",
@@ -245,6 +282,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 research。"
   },
+
+  // 18. attend
   {
     "type": "單字辨析",
     "word": "<u><b>attend</b></u> a training session",
@@ -259,6 +298,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 attend。"
   },
+
+  // 19. delivery
   {
     "type": "單字辨析",
     "word": "change a <u><b>delivery</b></u> date",
@@ -273,6 +314,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 delivery。"
   },
+
+  // 20. recently
   {
     "type": "單字辨析",
     "word": "I <u><b>recently</b></u> visited our new branch office.",
@@ -287,6 +330,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 recently。"
   },
+
+  // 21. indicate
   {
     "type": "單字辨析",
     "word": "What is <u><b>indicated</b></u> about the new product?",
@@ -301,6 +346,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 indicated。"
   },
+
+  // 22. employee
   {
     "type": "單字辨析",
     "word": "an <u><b>employee</b></u> of the company",
@@ -315,6 +362,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 employee。"
   },
+
+  // 23. additional
   {
     "type": "單字辨析",
     "word": "request <u><b>additional</b></u> staff",
@@ -329,6 +378,8 @@ const quizData = [
     "ans": false,
     "feedback": "應填入 additional。"
   },
+
+  // 24. survey
   {
     "type": "單字辨析",
     "word": "a customer satisfaction <u><b>survey</b></u>",
@@ -343,6 +394,8 @@ const quizData = [
     "ans": true,
     "feedback": "應填入 survey。"
   },
+
+  // 25. review
   {
     "type": "單字辨析",
     "word": "<u><b>review</b></u> the safety procedures",
@@ -359,29 +412,30 @@ const quizData = [
   }
 ];
 
-/**
- * 隨機抽取 5 題的函式
- * 滿足需求：每次隨機參雜「單字辨析」與「句型搭配」，且兩種類型各半（5 題中必為 2題/3題 或 3題/2題 分配）
- */
+// ==========================================
+// 核心演算法：安全隨機出題控制（確保混合類型各半）
+// ==========================================
 function getRandomFiveQuestions(data) {
+  // 將題目池依類型分流
   const discPool = data.filter(q => q.type === "單字辨析");
   const clozePool = data.filter(q => q.type === "句型搭配");
   
-  // 隨機決定哪種類型拿 3 題，哪種類型拿 2 題
+  // 隨機決定出題結構（可能是 3題辨析+2題搭配 或 2題辨析+3題搭配），藉此滿足「各至少一半」的規則限制
   const pickThreeDisc = Math.random() < 0.5;
   const numDisc = pickThreeDisc ? 3 : 2;
   const numCloze = pickThreeDisc ? 2 : 3;
   
-  // 洗牌輔助函式
+  // 純粹的隨機洗牌函式
   const shuffle = (array) => array.sort(() => Math.random() - 0.5);
   
+  // 抽樣特定數量的題目
   const selectedDisc = shuffle([...discPool]).slice(0, numDisc);
   const selectedCloze = shuffle([...clozePool]).slice(0, numCloze);
   
-  // 合併並再次打亂順序後回傳
+  // 混合兩種類型的抽取結果，並再次全面打亂順序以供渲染
   return shuffle([...selectedDisc, ...selectedCloze]);
 }
 
-// 實際使用範例
+// 執行出題範例：
 const currentSessionQuestions = getRandomFiveQuestions(quizData);
-console.log(currentSessionQuestions);
+console.log("本次測驗抽取的 5 題：", currentSessionQuestions);
