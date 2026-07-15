@@ -1,356 +1,387 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>【EP01】多益600核心單字・基礎打底特訓</title>
-    <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #f39c12; 
-            --blue: #3498db;
-            --success: #2ecc71; 
-            --error: #ff7675;   
-            --bg: #f4f7f9;
-            --grey: #7f8c8d;
-        }
-        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); margin: 0; padding: 5px; display: flex; justify-content: center; }
-        .container { background: white; width: 100%; max-width: 500px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
-        
-        .banner { width: 100%; height: auto; display: block; transition: 0.2s; }
-        .banner.compact { max-height: 50px; object-fit: cover; }
+// 行 90 改設定為 "【EP01】基礎打底特訓"
+const currentMode = "【EP01】基礎打底特訓";
 
-        .content-padding { padding: 12px 18px; }
+// 行 131-135 的設定內容
+const nextStageLink = `<a href="https://docs.google.com/forms/d/e/1FAIpQLSdNkem-vuwWTDc5eEfhv4FlqpubNv7dsoY0uFQEcv4c5rCtyg/viewform?usp=header" class="cta-button" target="_blank">前往👉下一關:中階情境演練</a>`;
+const promotionText = `這套「單字直覺」練習模式很有效吧!完整多益衝刺計畫已上架。<br>`;
+const shopeeLink = `<a href="https://shopee.tw/YOUR_LINK" class="shopee-link" target="_blank">點此前往看更多</a>`;
 
-        .intro-header h1 { font-size: 1.3rem; color: var(--primary); margin: 0 0 5px 0; }
-        .intro-header p { font-size: 0.9rem; color: #555; margin: 0; font-weight: bold; }
-
-        .header { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold; font-size: 0.85rem; color: var(--grey); }
-        .progress-container { width: 100%; background: #eee; height: 5px; border-radius: 3px; margin-bottom: 12px; }
-        .progress-bar { height: 100%; background: var(--blue); width: 0%; transition: 0.4s; }
-        
-        .question-box { min-height: 90px; margin-bottom: 12px; }
-        .type-tag { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; background: #e8f4fd; color: var(--blue); margin-bottom: 5px; font-weight: bold; }
-        .word { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; line-height: 1.3; }
-        .q-text { font-size: 1.1rem; color: #333; line-height: 1.5; padding: 12px; background: #f9f9f9; border-radius: 8px; border-left: 4px solid #ddd; }
-
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        button { padding: 15px; border: none; border-radius: 10px; font-size: 1rem; cursor: pointer; font-weight: bold; color: white; box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
-        .btn-true { background: var(--success); }
-        .btn-false { background: var(--error); }
-        .next-btn { width: 100%; background: var(--primary); margin-top: 10px; display: none; box-shadow: none; }
-        
-        .feedback { display: none; margin-top: 12px; padding: 10px; border-radius: 8px; font-size: 1rem; font-weight: bold; text-align: center; }
-        .correct-bg { background: #d4edda; color: #155724; }
-        .wrong-bg { background: #f8d7da; color: #721c24; }
-
-        /* 結果頁樣式 */
-        .result-screen { display: none; text-align: center; }
-        .final-score { font-size: 2.2rem; color: var(--blue); font-weight: bold; margin-bottom: 8px; }
-        
-        .history-container { background: #f8fafc; padding: 10px; border-radius: 8px; margin-bottom: 10px; text-align: left; border: 1px solid #edf2f7; }
-        .history-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .history-title { font-size: 0.85rem; font-weight: bold; color: var(--primary); }
-        
-        .clear-btn { 
-            font-size: 0.75rem; color: #e74c3c; cursor: pointer; background: #fff1f0; 
-            border: 1px solid #ffa39e; padding: 3px 8px; border-radius: 6px; 
-            transition: 0.2s; font-weight: bold;
-        }
-
-        .history-item { display: flex; justify-content: space-between; font-size: 0.8rem; color: #666; padding: 4px 0; border-bottom: 1px dashed #e2e8f0; }
-        
-        .review-container { text-align: left; margin-bottom: 12px; max-height: 140px; overflow-y: auto; border: 1px solid #eee; border-radius: 8px; padding: 5px; }
-        .review-item { padding: 5px; border-bottom: 1px solid #f1f1f1; font-size: 0.8rem; display: flex; align-items: flex-start; }
-        .review-icon { margin-right: 6px; flex-shrink: 0; }
-
-        .cta-button { 
-            display: block; width: 100%; padding: 14px; background: var(--secondary); color: white; 
-            text-decoration: none; border-radius: 30px; font-size: 1.1rem; font-weight: bold; 
-            margin: 15px 0 10px 0; box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
-            text-align: center; box-sizing: border-box; 
-        }
-        
-        .retry-link { display: inline-block; color: var(--blue); text-decoration: none; font-size: 0.85rem; font-weight: bold; cursor: pointer; margin-bottom: 15px; }
-
-        .footer-upsell { 
-            font-size: 0.75rem; color: #999; line-height: 1.6; border-top: 1px solid #eee; 
-            padding-top: 15px; text-align: center; 
-        }
-        .shopee-link { color: var(--blue); font-weight: bold; text-decoration: underline; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <img src="banner.jpg" id="main-banner" alt="【EP01】基礎打底特訓" class="banner"> 
-
-    <div class="content-padding">
-        <div id="intro-area" class="intro-header">
-            <h1>【EP01】基礎打底特訓</h1>
-            <p>🔥 直覺 3 秒挑戰。5 題快速上手。🔥</p>
-        </div>
-
-        <div id="quiz-section">
-            <div class="header">
-                <span id="q-count">題目 1 / 5</span>
-                <span id="score-count">得分: 0</span>
-            </div>
-            <div class="progress-container"><div class="progress-bar" id="progress"></div></div>
-            
-            <div class="question-box">
-                <div id="type-tag" class="type-tag">載入中</div>
-                <div id="word" class="word">Word</div>
-                <div id="content" class="q-text">載入中...</div>
-            </div>
-
-            <div class="btn-group">
-                <button class="btn-true" onclick="handleAnswer(true)">True 正確</button>
-                <button class="btn-false" onclick="handleAnswer(false)">False 錯誤</button>
-            </div>
-
-            <div id="feedback" class="feedback"></div>
-            <button id="next-btn" class="next-btn" onclick="nextQuestion()">下一題 →</button>
-        </div>
-
-        <div id="result-section" class="result-screen">
-            <div class="final-score" id="final-score">0 / 100</div>
-            
-            <div class="history-container">
-                <div class="history-header">
-                    <span class="history-title">📈 最近 5 次成績紀錄</span>
-                    <button class="clear-btn" onclick="confirmClear()">清除紀錄</button>
-                </div>
-                <div id="history-list"></div>
-            </div>
-
-            <div class="review-container" id="review-list"></div>
-            
-            <div><span class="retry-link" onclick="initQuiz()">↺ 再練一次這組單字</span></div>
-
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNkem-vuwWTDc5eEfhv4FlqpubNv7dsoY0uFQEcv4c5rCtyg/viewform?usp=header" class="cta-button" target="_blank">前往👉下一關:中階情境演練</a>
-
-            <div class="footer-upsell">
-                這套「單字直覺」練習模式很有效吧!完整多益衝刺計畫已上架。<br>
-                <a href="https://shopee.tw/YOUR_LINK" class="shopee-link" target="_blank">點此前往看更多</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-// 【EP01】基礎打底特訓 核心資料庫 (單字辨析與句型搭配答案 T/F 完美交替，且維持 50% 比例)
-const rawData = [
-    // 1. anyway
-    { type: "單字辨析", word: "Let’s do it <u><b>anyway</b></u>.", show: "無論如何、總之", ans: true, feedback: "anyway 是副詞「無論如何、總之」。" },
-    { type: "句型搭配", word: "anyway", show: "Let’s do it ______. / 填入：recently", ans: false, feedback: "應填入 anyway。" },
-    
-    // 2. following
-    { type: "單字辨析", word: "<u><b>Following</b></u> the interview, we had a short meeting.", show: "在...之前", ans: false, feedback: "following 是介係詞「在...之後」。" },
-    { type: "句型搭配", word: "following", show: "______ the interview, we had a short meeting. / 填入：Following", ans: true, feedback: "應填入 Following。" },
-    
-    // 3. refer
-    { type: "單字辨析", word: "Please <u><b>refer</b></u> to the training manual.", show: "參考", ans: true, feedback: "refer 是動詞「參考」。" },
-    { type: "句型搭配", word: "refer", show: "Please ______ to the training manual. / 填入：provide", ans: false, feedback: "應填入 refer。" },
-    
-    // 4. available
-    { type: "單字辨析", word: "Tickets are <u><b>available</b></u> online.", show: "極昂貴的、不可用的", ans: false, feedback: "available 是形容詞「可購買的、可取得的」。" },
-    { type: "句型搭配", word: "available", show: "Tickets are ______ online. / 填入：available", ans: true, feedback: "應填入 available。" },
-    
-    // 5. department
-    { type: "單字辨析", word: "the accounting <u><b>department</b></u>", show: "部門", ans: true, feedback: "department 是名詞「部門」。" },
-    { type: "句型搭配", word: "department", show: "the accounting ______ / 填入：equipment", ans: false, feedback: "應填入 department。" },
-    
-    // 6. conference
-    { type: "單字辨析", word: "a large <u><b>conference</b></u> room", show: "衝突、競爭", ans: false, feedback: "conference 是名詞「會議」。" },
-    { type: "句型搭配", word: "conference", show: "a large ______ room / 填入：conference", ans: true, feedback: "應填入 conference。" },
-    
-    // 7. according to
-    { type: "單字辨析", word: "<u><b>according to</b></u> the e-mail", show: "根據、按照", ans: true, feedback: "according to 是介係詞片語「根據、按照」。" },
-    { type: "句型搭配", word: "according to", show: "______ the e-mail / 填入：anyway", ans: false, feedback: "應填入 according to。" },
-    
-    // 8. likely
-    { type: "單字辨析", word: "Who most <u><b>likely</b></u> is the man?", show: "喜愛地", ans: false, feedback: "likely 是形容詞「有可能的」。" },
-    { type: "句型搭配", word: "likely", show: "Who most ______ is the man? / 填入：likely", ans: true, feedback: "應填入 likely。" },
-    
-    // 9. offer
-    { type: "單字辨析", word: "What does the woman <u><b>offer</b></u> to do?", show: "提議", ans: true, feedback: "offer 是動詞「提議」。" },
-    { type: "句型搭配", word: "offer", show: "What does the woman ______ to do? / 填入：review", ans: false, feedback: "應填入 offer。" },
-    
-    // 10. equipment
-    { type: "單字辨析", word: "new office <u><b>equipment</b></u>", show: "隊伍、隊員", ans: false, feedback: "equipment 是名詞「設備、裝備」。" },
-    { type: "句型搭配", word: "equipment", show: "new office ______ / 填入：equipment", ans: true, feedback: "應填入 equipment。" },
-    
-    // 11. provide
-    { type: "單字辨析", word: "Please <u><b>provide</b></u> me with your e-mail address.", show: "提供", ans: true, feedback: "provide 是動詞「提供」。" },
-    { type: "句型搭配", word: "provide", show: "Please ______ me with your e-mail address. / 填入：refer", ans: false, feedback: "應填入 provide。" },
-    
-    // 12. local
-    { type: "單字辨析", word: "<u><b>local</b></u> businesses", show: "國際的、跨國的", ans: false, feedback: "local 是形容詞「在地的」。" },
-    { type: "句型搭配", word: "local", show: "______ businesses / 填入：local", ans: true, feedback: "應填入 local。" },
-    
-    // 13. purchase
-    { type: "單字辨析", word: "<u><b>purchase</b></u> office supplies", show: "購買", ans: true, feedback: "purchase 是動詞「購買」。" },
-    { type: "句型搭配", word: "purchase", show: "______ office supplies / 填入：tour", ans: false, feedback: "應填入 purchase。" },
-    
-    // 14. opening
-    { type: "單字辨析", word: "a part-time job <u><b>opening</b></u>", show: "關閉、結案", ans: false, feedback: "opening 是名詞「職缺」。" },
-    { type: "句型搭配", word: "opening", show: "a part-time job ______ / 填入：opening", ans: true, feedback: "應填入 opening。" },
-    
-    // 15. construction
-    { type: "單字辨析", word: "<u><b>construction</b></u> project", show: "建設", ans: true, feedback: "construction 是名詞「建設」。" },
-    { type: "句型搭配", word: "construction", show: "______ project / 填入：research", ans: false, feedback: "應填入 construction。" },
-    
-    // 16. tour
-    { type: "單字辨析", word: "while <u><b>touring</b></u> the factory", show: "領導、主管", ans: false, feedback: "tour 是動詞「參訪」。" },
-    { type: "句型搭配", word: "tour", show: "while ______ing the factory / 填入: tour", ans: true, feedback: "應填入 tour。" },
-    
-    // 17. research
-    { type: "單字辨析", word: "market <u><b>research</b></u>", show: "研究、調查", ans: true, feedback: "research 是名詞「研究、調查」。" },
-    { type: "句型搭配", word: "research", show: "market ______ / 填入：delivery", ans: false, feedback: "應填入 research。" },
-    
-    // 18. attend
-    { type: "單字辨析", word: "<u><b>attend</b></u> a training session", show: "照料、看護", ans: false, feedback: "attend 是動詞「出席、參加」。" },
-    { type: "句型搭配", word: "attend", show: "______ a training session / 填入：attend", ans: true, feedback: "應填入 attend。" },
-    
-    // 19. delivery
-    { type: "單字辨析", word: "change a <u><b>delivery</b></u> date", show: "送貨", ans: true, feedback: "delivery 是名詞「送貨」。" },
-    { type: "句型搭配", word: "delivery", show: "change a ______ date / 填入：department", ans: false, feedback: "應填入 delivery。" },
-    
-    // 20. recently
-    { type: "單字辨析", word: "I <u><b>recently</b></u> visited our new branch office.", show: "一再地、頻繁地", ans: false, feedback: "recently 是副詞「最近」。" },
-    { type: "句型搭配", word: "recently", show: "I ______ visited our new branch office. / 填入：recently", ans: true, feedback: "應填入 recently。" },
-    
-    // 21. indicate
-    { type: "單字辨析", word: "What is <u><b>indicated</b></u> about the new product?", show: "提及", ans: true, feedback: "indicate 是動詞「提及」。" },
-    { type: "句型搭配", word: "indicate", show: "What is ______d about the new product? / 填入：purchase", ans: false, feedback: "應填入 indicate。" },
-    
-    // 22. employee
-    { type: "單字辨析", word: "an <u><b>employee</b></u> of the company", show: "雇主、老闆", ans: false, feedback: "employee 是名詞「員工」。" },
-    { type: "句型搭配", word: "employee", show: "an ______ of the company / 填入：employee", ans: true, feedback: "應填入 employee。" },
-    
-    // 23. additional
-    { type: "單字辨析", word: "request <u><b>additional</b></u> staff", show: "額外的", ans: true, feedback: "additional 是形容詞「額外的」。" },
-    { type: "句型搭配", word: "additional", show: "request ______ staff / 填入：local", ans: false, feedback: "應填入 additional。" },
-    
-    // 24. survey
-    { type: "單字辨析", word: "a customer satisfaction <u><b>survey</b></u>", show: "服務、招待", ans: false, feedback: "survey 是名詞「問卷調查」。" },
-    { type: "句型搭配", word: "survey", show: "a customer satisfaction ______ / 填入：survey", ans: true, feedback: "應填入 survey。" },
-    
-    // 25. review
-    { type: "單字辨析", word: "<u><b>review</b></u> the safety procedures", show: "審查; 評論", ans: true, feedback: "review 是動詞「審查; 評論」。" },
-    { type: "句型搭配", word: "review", show: "______ the safety procedures / 填入：indicate", ans: false, feedback: "應填入 review。" }
+const quizData = [
+  {
+    "type": "單字辨析",
+    "word": "Let’s do it <u><b>anyway</b></u>.",
+    "show": "無論如何、總之",
+    "ans": true,
+    "feedback": "anyway 是副詞「無論如何、總之」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "anyway",
+    "show": "Let’s do it ______ . / 填入：likely",
+    "ans": false,
+    "feedback": "應填入 anyway。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "<u><b>Following</b></u> the interview, we had a short meeting.",
+    "show": "在...之前、引導",
+    "ans": false,
+    "feedback": "following 是介系詞「在...之後」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "following",
+    "show": "______ the interview, we had a short meeting. / 填入：Following",
+    "ans": true,
+    "feedback": "應填入 Following。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "Please <u><b>refer</b></u> to the training manual.",
+    "show": "參考",
+    "ans": true,
+    "feedback": "refer 是動詞「參考」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "refer",
+    "show": "Please ______ to the training manual. / 填入：offer",
+    "ans": false,
+    "feedback": "應填入 refer。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "Tickets are <u><b>available</b></u> online.",
+    "show": "絕版的、不開放的",
+    "ans": false,
+    "feedback": "available 是形容詞「可購買的、可取得的」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "available",
+    "show": "Tickets are ______ online. / 填入：available",
+    "ans": true,
+    "feedback": "應填入 available。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "the accounting <u><b>department</b></u>",
+    "show": "部門",
+    "ans": true,
+    "feedback": "department 是名詞「部門」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "department",
+    "show": "the accounting ______ / 填入：construction",
+    "ans": false,
+    "feedback": "應填入 department。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "a large <u><b>conference</b></u> room",
+    "show": "廚房、儲藏室",
+    "ans": false,
+    "feedback": "conference 是名詞「會議」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "conference",
+    "show": "a large ______ room / 填入：conference",
+    "ans": true,
+    "feedback": "應填入 conference。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "<u><b>according to</b></u> the e-mail",
+    "show": "根據、按照",
+    "ans": true,
+    "feedback": "according to 是介系詞短語「根據、按照」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "according to",
+    "show": "______ the e-mail / 填入：following",
+    "ans": false,
+    "feedback": "應填入 according to。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "Who most <u><b>likely</b></u> is the man?",
+    "show": "絕對不可能的",
+    "ans": false,
+    "feedback": "likely 是形容詞「有可能的」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "likely",
+    "show": "Who most ______ is the man? / 填入：likely",
+    "ans": true,
+    "feedback": "應填入 likely。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "What does the woman <u><b>offer</b></u> to do?",
+    "show": "提議",
+    "ans": true,
+    "feedback": "offer 是動詞「提議」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "offer",
+    "show": "What does the woman ______ to do? / 填入：refer",
+    "ans": false,
+    "feedback": "應填入 offer。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "new office <u><b>equipment</b></u>",
+    "show": "人員、員工",
+    "ans": false,
+    "feedback": "equipment 是名詞「設備、裝備」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "equipment",
+    "show": "new office ______ / 填入：equipment",
+    "ans": true,
+    "feedback": "應填入 equipment。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "Please <u><b>provide</b></u> me with your e-mail address.",
+    "show": "提供",
+    "ans": true,
+    "feedback": "provide 是動詞「提供」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "provide",
+    "show": "Please ______ me with your e-mail address. / 填入：attend",
+    "ans": false,
+    "feedback": "應填入 provide。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "<u><b>local</b></u> businesses",
+    "show": "跨國的、連鎖的",
+    "ans": false,
+    "feedback": "local 是形容詞「在地的」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "local",
+    "show": "______ businesses / 填入：local",
+    "ans": true,
+    "feedback": "應填入 local。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "<u><b>purchase</b></u> office supplies",
+    "show": "購買",
+    "ans": true,
+    "feedback": "purchase 是動詞「購買」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "purchase",
+    "show": "______ office supplies / 填入：review",
+    "ans": false,
+    "feedback": "應填入 purchase。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "a part-time job <u><b>opening</b></u>",
+    "show": "結束、倒閉",
+    "ans": false,
+    "feedback": "opening 是名詞「職缺」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "opening",
+    "show": "a part-time job ______ / 填入：opening",
+    "ans": true,
+    "feedback": "應填入 opening。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "<u><b>construction</b></u> project",
+    "show": "建設",
+    "ans": true,
+    "feedback": "construction 是名詞「建設」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "construction",
+    "show": "______ project / 填入：department",
+    "ans": false,
+    "feedback": "應填入 construction。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "while <u><b>touring</b></u> the factory",
+    "show": "拆除、破壞",
+    "ans": false,
+    "feedback": "tour 是動詞「參訪」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "tour",
+    "show": "while ______ the factory / 填入：touring",
+    "ans": true,
+    "feedback": "應填入 touring。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "market <u><b>research</b></u>",
+    "show": "研究、調查",
+    "ans": true,
+    "feedback": "research 是名詞「研究、調查」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "research",
+    "show": "market ______ / 填入：survey",
+    "ans": false,
+    "feedback": "應填入 research。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "<u><b>attend</b></u> a training session",
+    "show": "缺席、請假",
+    "ans": false,
+    "feedback": "attend 是動詞「出席、參加」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "attend",
+    "show": "______ a training session / 填入：attend",
+    "ans": true,
+    "feedback": "應填入 attend。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "change a <u><b>delivery</b></u> date",
+    "show": "送貨",
+    "ans": true,
+    "feedback": "delivery 是名詞「送貨」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "delivery",
+    "show": "change a ______ date / 填入：research",
+    "ans": false,
+    "feedback": "應填入 delivery。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "I <u><b>recently</b></u> visited our new branch office.",
+    "show": "很久以前、過去",
+    "ans": false,
+    "feedback": "recently 是副詞「最近」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "recently",
+    "show": "I ______ visited our new branch office. / 填入：recently",
+    "ans": true,
+    "feedback": "應填入 recently。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "What is <u><b>indicated</b></u> about the new product?",
+    "show": "提及",
+    "ans": true,
+    "feedback": "indicate 是動詞「提及」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "indicate",
+    "show": "What is ______ about the new product? / 填入：provided",
+    "ans": false,
+    "feedback": "應填入 indicated。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "an <u><b>employee</b></u> of the company",
+    "show": "老闆、雇主",
+    "ans": false,
+    "feedback": "employee 是名詞「員工」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "employee",
+    "show": "an ______ of the company / 填入：employee",
+    "ans": true,
+    "feedback": "應填入 employee。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "request <u><b>additional</b></u> staff",
+    "show": "額外的",
+    "ans": true,
+    "feedback": "additional 是形容詞「額外的」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "additional",
+    "show": "request ______ staff / 填入：local",
+    "ans": false,
+    "feedback": "應填入 additional。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "a customer satisfaction <u><b>survey</b></u>",
+    "show": "投訴、抱怨",
+    "ans": false,
+    "feedback": "survey 是名詞「問卷調查」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "survey",
+    "show": "a customer satisfaction ______ / 填入：survey",
+    "ans": true,
+    "feedback": "應填入 survey。"
+  },
+  {
+    "type": "單字辨析",
+    "word": "<u><b>review</b></u> the safety procedures",
+    "show": "審查; 評論",
+    "ans": true,
+    "feedback": "review 是動詞「審查; 評論」。"
+  },
+  {
+    "type": "句型搭配",
+    "word": "review",
+    "show": "______ the safety procedures / 填入：purchase",
+    "ans": false,
+    "feedback": "應填入 review。"
+  }
 ];
 
-let questions = [];
-let currentIndex = 0;
-let score = 0;
-let userHistoryList = []; 
-
-function initQuiz() {
-    const shuffled = [...rawData].sort(() => 0.5 - Math.random());
-    questions = shuffled.slice(0, 5);
-    currentIndex = 0; score = 0; userHistoryList = [];
-    document.getElementById('main-banner').classList.remove('compact');
-    document.getElementById('intro-area').style.display = 'block';
-    document.getElementById('quiz-section').style.display = 'block';
-    document.getElementById('result-section').style.display = 'none';
-    document.getElementById('score-count').innerText = "得分: 0";
-    loadQuestion();
+/**
+ * 隨機抽取 5 題的函式
+ * 滿足需求：每次隨機參雜「單字辨析」與「句型搭配」，且兩種類型各半（5 題中必為 2題/3題 或 3題/2題 分配）
+ */
+function getRandomFiveQuestions(data) {
+  const discPool = data.filter(q => q.type === "單字辨析");
+  const clozePool = data.filter(q => q.type === "句型搭配");
+  
+  // 隨機決定哪種類型拿 3 題，哪種類型拿 2 題
+  const pickThreeDisc = Math.random() < 0.5;
+  const numDisc = pickThreeDisc ? 3 : 2;
+  const numCloze = pickThreeDisc ? 2 : 3;
+  
+  // 洗牌輔助函式
+  const shuffle = (array) => array.sort(() => Math.random() - 0.5);
+  
+  const selectedDisc = shuffle([...discPool]).slice(0, numDisc);
+  const selectedCloze = shuffle([...clozePool]).slice(0, numCloze);
+  
+  // 合併並再次打亂順序後回傳
+  return shuffle([...selectedDisc, ...selectedCloze]);
 }
 
-function loadQuestion() {
-    const q = questions[currentIndex];
-    document.getElementById('q-count').innerText = `題目 ${currentIndex + 1} / 5`;
-    document.getElementById('progress').style.width = `${((currentIndex + 1) / 5) * 100}%`;
-    document.getElementById('type-tag').innerText = q.type;
-    const wordEl = document.getElementById('word');
-    
-    if (q.type === "句型搭配") {
-        wordEl.style.display = 'none';
-        document.getElementById('content').innerText = q.show;
-    } else {
-        wordEl.style.display = 'block';
-        wordEl.innerHTML = q.word; 
-        document.getElementById('content').innerText = `底線字的意思是：${q.show}`;
-    }
-    
-    document.getElementById('feedback').style.display = 'none';
-    document.getElementById('next-btn').style.display = 'none';
-    document.querySelectorAll('.btn-group button').forEach(b => b.disabled = false);
-}
-
-function handleAnswer(userAns) {
-    const q = questions[currentIndex];
-    const feedback = document.getElementById('feedback');
-    document.querySelectorAll('.btn-group button').forEach(b => b.disabled = true);
-    feedback.style.display = 'block';
-    const isCorrect = (userAns === q.ans);
-    userHistoryList.push({ word: q.word, isCorrect: isCorrect, feedback: q.feedback });
-    if (isCorrect) {
-        score += 20;
-        feedback.innerText = "✅ " + q.feedback;
-        feedback.className = "feedback correct-bg";
-    } else {
-        feedback.innerText = "❌ " + q.feedback;
-        feedback.className = "feedback wrong-bg";
-    }
-    document.getElementById('score-count').innerText = `得分: ${Math.round(score)}`;
-    document.getElementById('next-btn').style.display = 'block';
-}
-
-function nextQuestion() {
-    currentIndex++;
-    if (currentIndex < 5) loadQuestion(); else showResult();
-}
-
-function showResult() {
-    document.getElementById('main-banner').classList.add('compact');
-    document.getElementById('intro-area').style.display = 'none';
-    document.getElementById('quiz-section').style.display = 'none';
-    document.getElementById('result-section').style.display = 'block';
-    document.getElementById('final-score').innerText = Math.round(score) + " / 100";
-    
-    const now = new Date();
-    const timeStr = `${now.getMonth() + 1}/${now.getDate()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-
-    // 儲存紀錄與讀取專屬金鑰
-    let history = JSON.parse(localStorage.getItem('toeic_history_ep01_v1')) || [];
-    history.unshift({ score: score, time: timeStr });
-    if(history.length > 5) history.pop();
-    localStorage.setItem('toeic_history_ep01_v1', JSON.stringify(history));
-    renderHistoryList(history);
-
-    document.getElementById('review-list').innerHTML = userHistoryList.map(item => `
-        <div class="review-item">
-            <span class="review-icon">${item.isCorrect ? '✅' : '❌'}</span>
-            <div><b>${item.word || ''}</b> <br> ${item.feedback}</div>
-        </div>
-    `).join('');
-}
-
-function renderHistoryList(history) {
-    const listEl = document.getElementById('history-list');
-    if (!history || history.length === 0) {
-        listEl.innerHTML = '<div style="font-size:0.8rem; color:#999; padding: 5px 0;">尚無紀錄</div>';
-        return;
-    }
-    listEl.innerHTML = history.map(item => `
-        <div class="history-item">
-            <span>時間：${item.time}</span>
-            <b style="color:var(--blue)">${Math.round(item.score)} 分</b>
-        </div>
-    `).join('');
-}
-
-function confirmClear() {
-    if (confirm("確定要清除所有練習紀錄嗎？")) {
-        localStorage.removeItem('toeic_history_ep01_v1');
-        renderHistoryList([]);
-    }
-}
-
-initQuiz();
-</script>
-</body>
-</html>
+// 實際使用範例
+const currentSessionQuestions = getRandomFiveQuestions(quizData);
+console.log(currentSessionQuestions);
